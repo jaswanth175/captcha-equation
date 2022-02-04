@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p> please answer to below expression <p>
+  
+ <form method='post' action=''>
+    {% csrf_token %}
+    {% for q  in questions%}
+    <div class="form-group">
+		<label for="question">{{message}}</label></br>
+      <label for="question">{{q.question}}</label>
+    </div>
+    <div class="form-check">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="op1" checked>
+            <label class="form-check-label" for="gridRadios1">
+                {{q.op1}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="op2">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.op2}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="op3">
+            <label class="form-check-label" for="gridRadios1">
+                {{q.op3}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="op4">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.op4}}
+            </label>
+        </div>
+        <br>
+    </div>    
+    {% endfor %}
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}
